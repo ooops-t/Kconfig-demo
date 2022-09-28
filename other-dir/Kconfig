@@ -1,0 +1,2 @@
+config KCONFIG_DEMO_OTHER_DIR
+       bool "I am define in other Kconfig file"

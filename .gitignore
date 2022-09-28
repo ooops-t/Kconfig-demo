@@ -1,0 +1,3 @@
+.config*
+include/config
+include/generated
