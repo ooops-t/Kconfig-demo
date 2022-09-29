@@ -88,12 +88,12 @@ config KCONFIG_DEMO_SELECT_1
 	bool "select 1"
 
 config KCONFIG_DEMO_SELECT_AB
-	bool "select a && b" 
+	bool "select a && b visible" 
 config KCONFIG_DEMO_SELECT_DEPENDS
 	bool "select a && b depends"
 
 menu "select A and B"
-	# visible if KCONFIG_DEMO_SELECT_AB
+	visible if KCONFIG_DEMO_SELECT_AB
 	depends on KCONFIG_DEMO_SELECT_DEPENDS
 
 config KCONFIG_DEMO_SELECT_SA

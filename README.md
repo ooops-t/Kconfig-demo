@@ -79,7 +79,7 @@
 
 ## Demo 目录结构
 
-``` shell
+```shell
 .
 ├── .config # 生成的配置文件
 ├── .config.old # 上一次的配置文件
@@ -100,7 +100,6 @@
 └── scripts # Kconfig 工具
     ├── conf
     └── mconf
-
 ```
 
 ## 实例代码
@@ -117,4 +116,3 @@
 * <https://www.codenong.com/cs109393488/>
 * <https://www.jianshu.com/p/aba588d380c2>
 * <https://www.eet-china.com/mp/a123684.html>
-

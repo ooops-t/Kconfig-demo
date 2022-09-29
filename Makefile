@@ -9,8 +9,9 @@ all: $(TARGET)
 $(TARGET): $(obj-y) FORCE
 	gcc $(LDFLAGS) -o $@ $(obj-y)
 
-defconfig:
-	./scripts/conf Kconfig
+
+%_defconfig:
+	./scripts/conf --defconfig=configs/$@ Kconfig
 	./scripts/conf -s --oldconfig Kconfig
 
 allyesconfig:
@@ -28,9 +29,12 @@ alldefconfig:
 menuconfig:
 	./scripts/mconf Kconfig
 	./scripts/conf -s --oldconfig Kconfig
+	
+savedefconfig:
+	./scripts/conf -s --savedefconfig defconfig Kconfig
 
 clean:
-	-rm $(TARGET)
+	-rm -rf $(TARGET)
 	-rm -rf ./include/config/* ./include/generated/*
 	-rm -rf .config .config.old
 
