@@ -1,13 +1,17 @@
 mainmenu "Kconfig demo"
 
+comment "menuconfig"
+
 menuconfig KCONFIG_DEMO_MENUCONFIG
 	bool "menuconfig"
-	
+
 if KCONFIG_DEMO_MENUCONFIG
 	config KCONFIG_DEMO_MENUCONFIG_CONFIG
 		bool "menuconfig config"
 endif
-	
+
+comment "config"
+
 config KCONFIG_DEMO_CONFIG
 	bool "config"
 
@@ -16,18 +20,22 @@ config KCONFIG_DEMO_CONFIG_CONFIG
 	bool "config config"
 endif
 
-menu "Hello menu"
+comment "menu"
+
+menu "menu"
 
 config KCONFIG_DEMO_MENU
 	bool
 	prompt "kconfig demo menu"
-	help 
+	help
 		"I an help message"
 endmenu
 
+comment "choice"
+
 choice
 	prompt "Kconfig demo choice"
-	
+
 config KCONFIG_DEMO_CHOICE_CONFIG
 	bool "choice config"
 
@@ -36,47 +44,106 @@ config KCONFIG_DEMO_CHOICE_CONFIG_1
 
 endchoice
 
+comment "depends on"
+
 config KCONFIG_DEMO_DEPENDS_ON
 	bool "depends on"
-	
+
 config KCONFIG_DEMO_DEPENDS_ON_1
 	bool "depends on 1"
 	depends on KCONFIG_DEMO_DEPENDS_ON
 
+config KCONFIG_DEMO_DEPENDS_ON_A
+       bool "A"
+
+config KCONFIG_DEMO_DEPENDS_ON_B
+       bool "B"
+
+config KCONFIG_DEMO_DEPENDS_ON_C
+       bool "C"
+       depends on KCONFIG_DEMO_DEPENDS_ON_A && KCONFIG_DEMO_DEPENDS_ON_B
+       help
+		"Depends on A and B"
+
+config KCONFIG_DEMO_DEPENDS_ON_D
+       bool "D"
+       depends on KCONFIG_DEMO_DEPENDS_ON_A || KCONFIG_DEMO_DEPENDS_ON_B
+       default y if KCONFIG_DEMO_DEPENDS_ON_CON
+       help
+       		"Depends on A or B"
+
+config KCONFIG_DEMO_DEPENDS_ON_E
+       bool "E"
+       depends on !KCONFIG_DEMO_DEPENDS_ON_A
+       help
+		"Depends on not A"
+
+comment "select"
+
 config KCONFIG_DEMO_SELECT
 	bool "select"
 	select KCONFIG_DEMO_SELECT_1
-	
+
 config KCONFIG_DEMO_SELECT_1
 	bool "select 1"
+
+config KCONFIG_DEMO_SELECT_AB
+	bool "select a && b" 
+config KCONFIG_DEMO_SELECT_DEPENDS
+	bool "select a && b depends"
+
+menu "select A and B"
+	# visible if KCONFIG_DEMO_SELECT_AB
+	depends on KCONFIG_DEMO_SELECT_DEPENDS
+
+config KCONFIG_DEMO_SELECT_SA
+	bool "select A"
+	select KCONFIG_DEMO_SELECT_SB
+	select KCONFIG_DEMO_SELECT_SC
+
+config KCONFIG_DEMO_SELECT_SB
+	bool "select B"	
 	
+config KCONFIG_DEMO_SELECT_SC
+	bool "select C"	
+endmenu
+
 comment "I am a comment in integer"
 
 config KCONFIG_DEMO_INTEGER
 	int "int"
 	default 0
-	
+
 comment "I am a comment in string"
 
 config KCONFIG_DEMO_STRING
 	string "string"
-	
+
 comment "I am a comment in hex"
 
 config KCONFIG_DEMO_HEX
 	hex "hex"
 	default 0x0
-	
+
 comment "I am a comment in range"
 
 config KCONFIG_DEMO_RANGE_INTEGER
 	int "range integer"
 	range 1 10
-	
+
 config KCONFIG_DEMO_RANGE_HEX
 	hex "range hex"
 	range 0xA 0xF
-	
+
+comment "comment depends on"
+
+config KCONFIG_DEMO_COMMENT_DEPENDS
+	bool "comment depends on"
+
+comment "comment depends on other comment"
+	depends on KCONFIG_DEMO_COMMENT_DEPENDS
+
+
+comment "source other-dir/Kconfig"
+
 source "other-dir/Kconfig"
-
-
